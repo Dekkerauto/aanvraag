@@ -91,29 +91,30 @@
 
     <input type="radio" id="jaarlijks" name="betalingstermijn" value="jaarlijks">
     <label for="jaarlijks" class="switch-label">Jaarlijks</label>
+  </div>
+</div>
 
-    <!-- Checkbox in dezelfde stijl -->
-    <input type="checkbox" id="akkoordIncasso" name="akkoord_incasso" checked>
-    <label for="akkoordIncasso" class="switch-label" id="incasso-label">
-      Automatische incasso
-    </label>
+<!-- Statische tekst met switch ernaast -->
+<div class="form-group" id="incasso-optie">
+  <span>Ik ga akkoord met automatische incasso</span>
+  <div class="switch" style="margin-left:10px;">
+    <input type="checkbox" id="akkoordIncasso" checked>
+    <label for="akkoordIncasso" class="switch-label"></label>
   </div>
 </div>
 
 <script>
   const radios = document.querySelectorAll('input[name="betalingstermijn"]');
+  const incassoOptie = document.getElementById('incasso-optie');
   const cb = document.getElementById('akkoordIncasso');
-  const cbLabel = document.getElementById('incasso-label');
 
   function updateIncasso() {
     const val = document.querySelector('input[name="betalingstermijn"]:checked').value;
     const show = (val === 'maandelijks' || val === 'kwartaal');
 
-    cb.style.display = show ? 'inline-block' : 'none';
-    cbLabel.style.display = show ? 'inline-block' : 'none';
-
+    incassoOptie.style.display = show ? 'flex' : 'none';
     cb.checked = show;     // altijd groen als zichtbaar
-    cb.disabled = !show;   // kan niet per ongeluk mee bij jaarlijks
+    cb.disabled = !show;   // niet aanklikbaar bij jaarlijks
   }
 
   radios.forEach(r => r.addEventListener('change', updateIncasso));
@@ -528,4 +529,5 @@
     </script>
 </body>
 </html>
+
 
