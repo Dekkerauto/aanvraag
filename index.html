@@ -79,47 +79,45 @@
                     </div>
                 </div>
 <h4>Betaalgegevens</h4>
+
 <div class="form-group">
-    <label>Betalingstermijn:</label>
-    <div class="switch">
-        <input type="radio" id="maandelijks" name="betalingstermijn" value="maandelijks" checked>
-        <label for="maandelijks" class="switch-label">Maandelijks</label>
+  <label>Betalingstermijn:</label>
+  <div class="switch">
+    <input type="radio" id="maandelijks" name="betalingstermijn" value="maandelijks" checked>
+    <label for="maandelijks" class="switch-label">Maandelijks</label>
 
-        <input type="radio" id="kwartaal" name="betalingstermijn" value="kwartaal">
-        <label for="kwartaal" class="switch-label">Kwartaal</label>
+    <input type="radio" id="kwartaal" name="betalingstermijn" value="kwartaal">
+    <label for="kwartaal" class="switch-label">Kwartaal</label>
 
-        <input type="radio" id="jaarlijks" name="betalingstermijn" value="jaarlijks">
-        <label for="jaarlijks" class="switch-label">Jaarlijks</label>
-    </div>
-</div>
+    <input type="radio" id="jaarlijks" name="betalingstermijn" value="jaarlijks">
+    <label for="jaarlijks" class="switch-label">Jaarlijks</label>
 
-<!-- Checkbox die alleen bij maand/kwartaal getoond wordt -->
-<div class="form-group" id="incasso-optie" style="display: none;">
-    <label>
-        <input type="checkbox" id="akkoordIncasso" checked>
-        Ik ga akkoord met automatische incasso.
+    <!-- Checkbox in dezelfde stijl -->
+    <input type="checkbox" id="akkoordIncasso" name="akkoord_incasso" checked>
+    <label for="akkoordIncasso" class="switch-label" id="incasso-label">
+      Automatische incasso
     </label>
+  </div>
 </div>
 
 <script>
-    const radios = document.querySelectorAll('input[name="betalingstermijn"]');
-    const incassoOptie = document.getElementById('incasso-optie');
+  const radios = document.querySelectorAll('input[name="betalingstermijn"]');
+  const cb = document.getElementById('akkoordIncasso');
+  const cbLabel = document.getElementById('incasso-label');
 
-    function updateIncasso() {
-        const geselecteerd = document.querySelector('input[name="betalingstermijn"]:checked').value;
-        if (geselecteerd === 'maandelijks' || geselecteerd === 'kwartaal') {
-            incassoOptie.style.display = 'block';
-        } else {
-            incassoOptie.style.display = 'none';
-        }
-    }
+  function updateIncasso() {
+    const val = document.querySelector('input[name="betalingstermijn"]:checked').value;
+    const show = (val === 'maandelijks' || val === 'kwartaal');
 
-    radios.forEach(radio => {
-        radio.addEventListener('change', updateIncasso);
-    });
+    cb.style.display = show ? 'inline-block' : 'none';
+    cbLabel.style.display = show ? 'inline-block' : 'none';
 
-    // Initiale check (omdat maandelijks standaard geselecteerd is)
-    updateIncasso();
+    cb.checked = show;     // altijd groen als zichtbaar
+    cb.disabled = !show;   // kan niet per ongeluk mee bij jaarlijks
+  }
+
+  radios.forEach(r => r.addEventListener('change', updateIncasso));
+  updateIncasso(); // initiale staat
 </script>
                 <div class="form-group">
                     <label for="iban">Uw IBAN-rekeningnummer:</label>
@@ -530,3 +528,4 @@
     </script>
 </body>
 </html>
+
