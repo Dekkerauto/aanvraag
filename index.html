@@ -78,18 +78,49 @@
                         <input type="text" id="relatie" name="relatie" autocomplete="off">
                     </div>
                 </div>
-                <h4>Betaalgegevens</h4>
-                <div class="form-group">
-                    <label>Betalingstermijn:</label>
-                    <div class="switch">
-                        <input type="radio" id="maandelijks" name="betalingstermijn" value="maandelijks" checked>
-                        <label for="maandelijks" class="switch-label">Maandelijks</label>
-                        <input type="radio" id="kwartaal" name="betalingstermijn" value="kwartaal">
-                        <label for="kwartaal" class="switch-label">Kwartaal</label>
-                        <input type="radio" id="jaarlijks" name="betalingstermijn" value="jaarlijks">
-                        <label for="jaarlijks" class="switch-label">Jaarlijks</label>
-                    </div>
-                </div>
+<h4>Betaalgegevens</h4>
+<div class="form-group">
+    <label>Betalingstermijn:</label>
+    <div class="switch">
+        <input type="radio" id="maandelijks" name="betalingstermijn" value="maandelijks" checked>
+        <label for="maandelijks" class="switch-label">Maandelijks</label>
+
+        <input type="radio" id="kwartaal" name="betalingstermijn" value="kwartaal">
+        <label for="kwartaal" class="switch-label">Kwartaal</label>
+
+        <input type="radio" id="jaarlijks" name="betalingstermijn" value="jaarlijks">
+        <label for="jaarlijks" class="switch-label">Jaarlijks</label>
+    </div>
+</div>
+
+<!-- Checkbox die alleen bij maand/kwartaal getoond wordt -->
+<div class="form-group" id="incasso-optie" style="display: none;">
+    <label>
+        <input type="checkbox" id="akkoordIncasso" checked>
+        Ik ga akkoord met automatische incasso.
+    </label>
+</div>
+
+<script>
+    const radios = document.querySelectorAll('input[name="betalingstermijn"]');
+    const incassoOptie = document.getElementById('incasso-optie');
+
+    function updateIncasso() {
+        const geselecteerd = document.querySelector('input[name="betalingstermijn"]:checked').value;
+        if (geselecteerd === 'maandelijks' || geselecteerd === 'kwartaal') {
+            incassoOptie.style.display = 'block';
+        } else {
+            incassoOptie.style.display = 'none';
+        }
+    }
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', updateIncasso);
+    });
+
+    // Initiale check (omdat maandelijks standaard geselecteerd is)
+    updateIncasso();
+</script>
                 <div class="form-group">
                     <label for="iban">Uw IBAN-rekeningnummer:</label>
                     <input type="text" id="iban" name="iban" autocomplete="iban" required>
