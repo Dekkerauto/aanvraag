@@ -94,27 +94,18 @@
   </div>
 </div>
 
-<!-- Statische tekst met switch ernaast -->
-<div class="form-group" id="incasso-optie">
-  <span>Ik ga akkoord met automatische incasso</span>
-  <div class="switch" style="margin-left:10px;">
-    <input type="checkbox" id="akkoordIncasso" checked>
-    <label for="akkoordIncasso" class="switch-label"></label>
-  </div>
+<!-- Tekst verschijnt alleen bij maand/kwartaal -->
+<div class="form-group" id="incasso-tekst" style="display:none;">
+  <strong>Ik ga akkoord met automatische incasso</strong>
 </div>
 
 <script>
   const radios = document.querySelectorAll('input[name="betalingstermijn"]');
-  const incassoOptie = document.getElementById('incasso-optie');
-  const cb = document.getElementById('akkoordIncasso');
+  const incassoTekst = document.getElementById('incasso-tekst');
 
   function updateIncasso() {
     const val = document.querySelector('input[name="betalingstermijn"]:checked').value;
-    const show = (val === 'maandelijks' || val === 'kwartaal');
-
-    incassoOptie.style.display = show ? 'flex' : 'none';
-    cb.checked = show;     // altijd groen als zichtbaar
-    cb.disabled = !show;   // niet aanklikbaar bij jaarlijks
+    incassoTekst.style.display = (val === 'maandelijks' || val === 'kwartaal') ? 'block' : 'none';
   }
 
   radios.forEach(r => r.addEventListener('change', updateIncasso));
@@ -529,5 +520,6 @@
     </script>
 </body>
 </html>
+
 
 
